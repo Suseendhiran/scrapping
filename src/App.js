@@ -22,11 +22,10 @@ function App() {
     });
   };
   const handleApplyFilter = (category, source) => {
-    console.log("cat", category);
-    let stringifiedFilter = queryString.stringify({
-      category: category,
-      source: source,
-    });
+    let filterObject = {};
+    if (category) filterObject.category = category;
+    if (source) filterObject.source = source;
+    let stringifiedFilter = queryString.stringify(filterObject);
     getProducts(stringifiedFilter);
   };
   const handleClearFilter = () => {
