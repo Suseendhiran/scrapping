@@ -6,6 +6,11 @@
   height: 40vmin;
   pointer-events: none;
 }
+body {
+  font-family: "Mohave", sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -25,7 +30,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #d7eaf3;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +40,51 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.header {
+  font-size: 40px;
+}
+.prodcutsWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.productWrapper {
+  display: flex;
+  background-color: white;
+  padding: 30px;
+  border-bottom: 2px solid gray;
+  width: 100%;
+  /* box-shadow: 19px 21px 38px -21px rgba(0, 0, 0, 0.79);
+  -webkit-box-shadow: 19px 21px 38px -21px rgba(0, 0, 0, 0.79);
+  -moz-box-shadow: 19px 21px 38px -21px rgba(0, 0, 0, 0.79); */
+}
+.productImage {
+  height: 225px;
+  width: 225px;
+  object-fit: contain;
+}
+.productDetails {
+  text-align: left;
+  margin-left: 25px;
+}
+.productDetails strong {
+  font-size: 14px;
+}
+.offerPrice {
+  font-size: 18px;
+}
+.actualPrice {
+  font-size: 12px;
+  margin-left: 10px;
+}
+.productSource {
+  font-size: 16px;
+}
+.filterWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
 }
