@@ -58,6 +58,8 @@ body {
   padding: 30px;
   border-bottom: 2px solid gray;
   width: 100%;
+  color: inherit;
+  text-decoration: none;
   /* box-shadow: 19px 21px 38px -21px rgba(0, 0, 0, 0.79);
   -webkit-box-shadow: 19px 21px 38px -21px rgba(0, 0, 0, 0.79);
   -moz-box-shadow: 19px 21px 38px -21px rgba(0, 0, 0, 0.79); */

@@ -34,7 +34,13 @@ function Index({ product }) {
         </p>
       </div>
     </div> */}
-      <div className="productWrapper" key={product._id}>
+      <a
+        className="productWrapper"
+        key={product._id}
+        href={product.link}
+        target="_blank"
+        rel="noreferrer"
+      >
         <img src={product.image} alt="prod" className="productImage" />
         <div className="productDetails">
           <h4>{product.name}</h4>
@@ -56,7 +62,7 @@ function Index({ product }) {
             <strong>Source</strong>: {product.source}
           </p>
         </div>
-      </div>
+      </a>
     </>
   );
 }
