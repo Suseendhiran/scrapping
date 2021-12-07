@@ -17,7 +17,7 @@ function Index({
     <div className="filterWrapper">
       <div>
         <TextField
-          style={{ width: "400px", marginRight: "20px" }}
+          style={{ width: "270px", marginRight: "20px", marginBottom: "10px" }}
           onChange={(e) => setNameFilter(e.target.value)}
           value={nameFilter}
           placeholder="Search for mobiles and Laptops.."
@@ -29,7 +29,7 @@ function Index({
           value={sourceFilter}
           label="Source"
           onChange={(e) => setSourceFilter(e.target.value)}
-          style={{ width: "200px", marginRight: "20px" }}
+          style={{ width: "270px", marginRight: "20px" }}
         >
           <MenuItem value={"Amazon"}>Amazon</MenuItem>
           <MenuItem value={"Flipkart"}>Flipkart</MenuItem>
