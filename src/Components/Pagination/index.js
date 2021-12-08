@@ -7,7 +7,6 @@ function Index() {
   const { setPage, noOfPages } = usePagination();
 
   const handleChange = (e, value) => {
-    console.log("page", value);
     setPage(value);
   };
   return (

@@ -8,7 +8,10 @@ import { Button } from "@mui/material";
 function Index({ setFilter, filter }) {
   return (
     <Formik
-      initialValues={filter}
+      initialValues={{
+        name: filter.name ? filter.name : "",
+        source: filter.source ? filter.source : "",
+      }}
       enableReinitialize
       onSubmit={(values) => {
         console.log("values", values);
@@ -16,7 +19,6 @@ function Index({ setFilter, filter }) {
       }}
     >
       {({ handleChange, values, handleSubmit }) => {
-        console.log("values", values);
         return (
           <form onSubmit={handleSubmit} className="filterWrapper">
             <div>
@@ -29,6 +31,7 @@ function Index({ setFilter, filter }) {
                 onChange={handleChange}
                 value={values.name}
                 name="name"
+                type="text"
                 placeholder="Search for mobiles and Laptops.."
               />
 
