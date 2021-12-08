@@ -18,7 +18,7 @@ function App() {
   const { page, setTotalCount, limit } = usePagination();
   const [filter, setFilter] = useState({
     name: "",
-    source: "",
+    source: "Amazon",
   });
   const getProducts = () => {
     Object.keys(filter).forEach((key) => {
