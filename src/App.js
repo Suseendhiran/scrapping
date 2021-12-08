@@ -26,7 +26,7 @@ function App() {
     });
     if (page) filter.page = page;
     if (limit) filter.limit = limit;
-
+    //querifying filter and pagination details
     let filterQuery = queryString.stringify(filter);
     setLoading(true);
     axios
@@ -34,14 +34,13 @@ function App() {
       .then((res) => {
         setProducts(res.data.results);
         setTotalCount(res.data.totalCount);
-
         setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
       });
   };
-
+  //get products on first render and while page, filter values changes
   useEffect(() => {
     getProducts();
   }, [page, filter]);
