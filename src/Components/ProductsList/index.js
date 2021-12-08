@@ -5,7 +5,7 @@ import { useLoader } from "../../Providers/LoaderProvider";
 
 function Index({ products }) {
   const { loading } = useLoader();
-  console.log("laoding", loading);
+
   return (
     <div className="prodcutsWrapper">
       {products.length ? (
