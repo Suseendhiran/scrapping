@@ -16,14 +16,20 @@ function App() {
   const { setLoading } = useLoader();
   const getProducts = (filter) => {
     setLoading(true);
-    axios.get(`/products?${filter ? filter : ""}`).then((data) => {
-      setProducts(data.data);
-      setLoading(false);
-    });
+    axios
+      .get(`/products?${filter ? filter : ""}`)
+      .then((res) => {
+        setProducts(res.data.results);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   };
-  const handleApplyFilter = (category, source) => {
+  const handleApplyFilter = (name, source) => {
     let filterObject = {};
-    if (category) filterObject.category = category;
+    if (name) filterObject.name = name;
     if (source) filterObject.source = source;
     let stringifiedFilter = queryString.stringify(filterObject);
     getProducts(stringifiedFilter);
