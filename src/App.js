@@ -3,7 +3,9 @@ import queryString from "query-string";
 import Header from "./Components/Header";
 import ProductsList from "./Components/ProductsList";
 import Filter from "./Components/Filter";
+
 import { useLoader } from "./Providers/LoaderProvider";
+import { usePagination } from "./Providers/PaginationProvider";
 
 import "./App.css";
 
@@ -11,48 +13,42 @@ import axios from "./Api/api";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [nameFilter, setNameFilter] = useState();
-  const [sourceFilter, setSourceFilter] = useState("");
+
   const { setLoading } = useLoader();
-  const getProducts = (filter) => {
+  const { page, setTotalCount, limit } = usePagination();
+  const [filter, setFilter] = useState({
+    name: "",
+    source: "",
+  });
+  const getProducts = () => {
+    Object.keys(filter).forEach((key) => {
+      if (!filter[key]) delete filter[key];
+    });
+    if (page) filter.page = page;
+    if (limit) filter.limit = limit;
+
+    let filterQuery = queryString.stringify(filter);
     setLoading(true);
     axios
-      .get(`/products?${filter ? filter : ""}`)
+      .get(`/products?${filterQuery ? filterQuery : ""}`)
       .then((res) => {
         setProducts(res.data.results);
+        setTotalCount(res.data.totalCount);
+
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
       });
   };
-  const handleApplyFilter = (name, source) => {
-    let filterObject = {};
-    if (name) filterObject.name = name;
-    if (source) filterObject.source = source;
-    let stringifiedFilter = queryString.stringify(filterObject);
-    getProducts(stringifiedFilter);
-  };
-  const handleClearFilter = () => {
-    setNameFilter("");
-    setSourceFilter("");
-    getProducts();
-  };
+
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [page, filter]);
   return (
     <div className="App">
       <Header />
-      <Filter
-        setNameFilter={setNameFilter}
-        setSourceFilter={setSourceFilter}
-        sourceFilter={sourceFilter}
-        handleApplyFilter={handleApplyFilter}
-        nameFilter={nameFilter}
-        handleClearFilter={handleClearFilter}
-      />
+      <Filter filter={filter} setFilter={setFilter} />
       <ProductsList products={products} />
     </div>
   );

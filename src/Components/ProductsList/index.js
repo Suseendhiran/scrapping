@@ -1,10 +1,13 @@
 import React from "react";
 
 import Product from "../Product";
+import Pagination from "../Pagination";
 import { useLoader } from "../../Providers/LoaderProvider";
+import { usePagination } from "../../Providers/PaginationProvider";
 
-function Index({ products }) {
+function Index({ products, page, setpage }) {
   const { loading } = useLoader();
+  const { limit, totalCount } = usePagination();
 
   return (
     <div className="prodcutsWrapper">
@@ -15,6 +18,7 @@ function Index({ products }) {
           {loading ? "Fetching Products..." : "No items Found !!"}
         </h2>
       )}
+      {totalCount > limit ? <Pagination /> : null}
     </div>
   );
 }

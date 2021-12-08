@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import LoaderProvider from "./Providers/LoaderProvider";
+import PaginationProvider from "./Providers/PaginationProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <LoaderProvider>
-      <App />
+      <PaginationProvider>
+        <App />
+      </PaginationProvider>
     </LoaderProvider>
   </React.StrictMode>,
   document.getElementById("root")

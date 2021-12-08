@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding-bottom: 80px;
 }
 
 .App-logo {
@@ -154,4 +155,11 @@ body {
   .productWrapper {
     flex-direction: column;
   }
+}
+.paginationContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  justify-content: center;
 }
