@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import queryString from "query-string";
+import { useSearchParams } from "react-router-dom";
 import Header from "./Components/Header";
 import ProductsList from "./Components/ProductsList";
 import Filter from "./Components/Filter";
@@ -12,22 +13,41 @@ import "./App.css";
 import axios from "./Api/api";
 
 function App() {
+  const urlQuery = window.location.search;
+  const queryParams = queryString.parse(urlQuery);
   const [products, setProducts] = useState([]);
-
+  let [searchParams, setSearchParams] = useSearchParams();
   const { setLoading } = useLoader();
-  const { page, setTotalCount, limit } = usePagination();
+  const { setTotalCount, limit } = usePagination();
   const [filter, setFilter] = useState({
     name: "",
-    source: "Amazon",
+    source: searchParams.get("source"),
   });
-  const getProducts = () => {
-    Object.keys(filter).forEach((key) => {
-      if (!filter[key]) delete filter[key];
+  const updateUrlParams = (param) => {
+    //if no params present, will clear the urlquery
+    if (!Object.keys(param).length) {
+      setSearchParams({});
+      setFilter({});
+      return;
+    }
+    //Add filter/pagination details to query
+    let query = { ...queryParams, ...param };
+    //delete prop if no value present
+    Object.keys(query).forEach((key) => {
+      if (!query[key]) delete query[key];
     });
-    if (page) filter.page = page;
-    if (limit) filter.limit = limit;
+    if (limit) query.limit = limit;
+    setSearchParams({ ...query });
+  };
+  const getProducts = () => {
+    if (!queryParams.source) queryParams.source = filter.source; // add default source to query
+    Object.keys(queryParams).forEach((key) => {
+      if (!queryParams[key]) delete queryParams[key];
+    });
+
+    if (limit) queryParams.limit = limit;
     //querifying filter and pagination details
-    let filterQuery = queryString.stringify(filter);
+    let filterQuery = queryString.stringify(queryParams);
     setLoading(true);
     axios
       .get(`/products?${filterQuery ? filterQuery : ""}`)
@@ -43,12 +63,20 @@ function App() {
   //get products on first render and while page, filter values changes
   useEffect(() => {
     getProducts();
-  }, [page, filter]);
+  }, [urlQuery]);
+
   return (
     <div className="App">
       <Header />
-      <Filter filter={filter} setFilter={setFilter} />
-      <ProductsList products={products} />
+      <Filter
+        filter={filter}
+        setFilter={setFilter}
+        updateUrlParams={(filters) => updateUrlParams(filters)}
+      />
+      <ProductsList
+        products={products}
+        updateUrlParams={(page) => updateUrlParams(page)}
+      />
     </div>
   );
 }

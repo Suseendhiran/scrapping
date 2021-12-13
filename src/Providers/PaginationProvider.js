@@ -35,6 +35,7 @@ export default function LoaderProvider({ children }) {
   useEffect(() => {
     setNoOfPages(Math.floor(totalCount / limit));
   }, [totalCount, limit]);
+  console.log("noofpages", noOfPages);
   return (
     <paginateContext.Provider value={values}>
       {children}
