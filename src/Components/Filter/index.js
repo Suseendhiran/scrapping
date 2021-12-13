@@ -4,8 +4,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { Formik } from "formik";
 import { Button } from "@mui/material";
+import { usePagination } from "../../Providers/PaginationProvider";
 
-function Index({ setFilter, filter }) {
+function Index({ filter, updateUrlParams }) {
+  const { setPage } = usePagination();
   return (
     <Formik
       initialValues={{
@@ -15,7 +17,8 @@ function Index({ setFilter, filter }) {
       enableReinitialize
       onSubmit={(values) => {
         console.log("values", values);
-        setFilter(values);
+        updateUrlParams({ ...values, page: 1 });
+        setPage(1);
       }}
     >
       {({ handleChange, values, handleSubmit }) => {
@@ -56,7 +59,7 @@ function Index({ setFilter, filter }) {
               <Button
                 style={{ marginLeft: "10px" }}
                 onClick={() => {
-                  setFilter({});
+                  updateUrlParams({});
                 }}
                 variant="contained"
               >

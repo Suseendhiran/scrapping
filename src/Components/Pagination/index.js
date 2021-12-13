@@ -3,12 +3,14 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { usePagination } from "../../Providers/PaginationProvider";
 
-function Index() {
-  const { setPage, noOfPages } = usePagination();
+function Index({ updateUrlParams }) {
+  const { setPage, noOfPages, page } = usePagination();
 
   const handleChange = (e, value) => {
     setPage(value);
+    updateUrlParams({ page: value });
   };
+  console.log("pages", page);
   return (
     <div className="paginationContainer">
       <Stack spacing={2}>
@@ -17,6 +19,7 @@ function Index() {
           count={noOfPages}
           variant="outlined"
           color="primary"
+          page={page}
         />
       </Stack>
     </div>
