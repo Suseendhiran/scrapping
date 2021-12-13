@@ -5,7 +5,7 @@ import Pagination from "../Pagination";
 import { useLoader } from "../../Providers/LoaderProvider";
 import { usePagination } from "../../Providers/PaginationProvider";
 
-function Index({ products, page, setpage }) {
+function Index({ products, page, setpage, updateUrlParams }) {
   const { loading } = useLoader();
   const { limit, totalCount } = usePagination();
 
@@ -18,7 +18,9 @@ function Index({ products, page, setpage }) {
           {loading ? "Fetching Products..." : "No items Found !!"}
         </h2>
       )}
-      {totalCount > limit ? <Pagination /> : null}
+      {totalCount > limit ? (
+        <Pagination updateUrlParams={updateUrlParams} />
+      ) : null}
     </div>
   );
 }

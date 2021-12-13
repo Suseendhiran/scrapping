@@ -5,14 +5,29 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import LoaderProvider from "./Providers/LoaderProvider";
 import PaginationProvider from "./Providers/PaginationProvider";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <LoaderProvider>
-      <PaginationProvider>
-        <App />
-      </PaginationProvider>
-    </LoaderProvider>
+    <Router>
+      <LoaderProvider>
+        <PaginationProvider>
+          <Routes>
+            <Route
+              path="/"
+              exact
+              element={<Navigate replace to="/products?source=Amazon" />}
+            ></Route>
+            <Route path="products" element={<App />} />
+          </Routes>
+        </PaginationProvider>
+      </LoaderProvider>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
